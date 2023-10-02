@@ -19,6 +19,7 @@ import FileCopyIcon from "@mui/icons-material/FileCopyOutlined";
 import SaveIcon from "@mui/icons-material/Save";
 import PrintIcon from "@mui/icons-material/Print";
 import ShareIcon from "@mui/icons-material/Share";
+import ResponsiveAppBar from "./components/ResponsiveAppBar";
 
 const actions = [
   { icon: <FileCopyIcon />, name: "Copy" },
@@ -61,35 +62,36 @@ const card = (
 
 function App() {
   return (
-    <div>
-      <React.Fragment>
-        {/* Need to add a basic app bar: https://mui.com/material-ui/react-app-bar/ */}
+    <React.Fragment>
+      <CssBaseline />
+      {/* Need to add a basic app bar: https://mui.com/material-ui/react-app-bar/ */}
+      <ResponsiveAppBar />
 
-        {/* What is CSS Baseline? */}
-        {/* <CssBaseline /> */}
+      <Container maxWidth="sm">
+        <Card variant="outlined">{card}</Card>
+        <Card variant="outlined">{card}</Card>
+        <Card variant="outlined">{card}</Card>
+        <Card variant="outlined">{card}</Card>
+        <Card variant="outlined">{card}</Card>
+        <Card variant="outlined">{card}</Card>
+        <Card variant="outlined">{card}</Card>
+        <Card variant="outlined">{card}</Card>
 
-        <Container maxWidth="sm">
-          <Card variant="outlined">{card}</Card>
-          <Card variant="outlined">{card}</Card>
-          <Card variant="outlined">{card}</Card>
-          <Card variant="outlined">{card}</Card>
-
-          {/* https://mui.com/material-ui/react-speed-dial/ */}
-          <SpeedDial
-            ariaLabel="SpeedDial openIcon example"
-            sx={{ position: "absolute", bottom: 16, right: 16 }}
-            icon={<SpeedDialIcon />}>
-            {actions.map((action) => (
-              <SpeedDialAction
-                key={action.name}
-                icon={action.icon}
-                tooltipTitle={action.name}
-              />
-            ))}
-          </SpeedDial>
-        </Container>
-      </React.Fragment>
-    </div>
+        {/* https://mui.com/material-ui/react-speed-dial/ */}
+        <SpeedDial
+          ariaLabel="SpeedDial openIcon example"
+          sx={{ position: "fixed", bottom: 16, right: 16 }}
+          icon={<SpeedDialIcon />}>
+          {actions.map((action) => (
+            <SpeedDialAction
+              key={action.name}
+              icon={action.icon}
+              tooltipTitle={action.name}
+            />
+          ))}
+        </SpeedDial>
+      </Container>
+    </React.Fragment>
   );
 }
 
