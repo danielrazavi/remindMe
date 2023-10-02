@@ -20,10 +20,6 @@ function App() {
       <Container maxWidth="sm">
         <Stack spacing={2}>
           <ReminderCards />
-          <ReminderCards />
-          <ReminderCards />
-          <ReminderCards />
-          <ReminderCards />
         </Stack>
         <Box height={20} />
 

@@ -1,16 +1,14 @@
 import SpeedDial from "@mui/material/SpeedDial";
 import SpeedDialIcon from "@mui/material/SpeedDialIcon";
 import SpeedDialAction from "@mui/material/SpeedDialAction";
-import FileCopyIcon from "@mui/icons-material/FileCopyOutlined";
-import SaveIcon from "@mui/icons-material/Save";
-import PrintIcon from "@mui/icons-material/Print";
-import ShareIcon from "@mui/icons-material/Share";
+import AddAlertIcon from "@mui/icons-material/AddAlert";
+import ListIcon from "@mui/icons-material/List";
+import GroupWorkIcon from "@mui/icons-material/GroupWork";
 
 const actions = [
-  { icon: <FileCopyIcon />, name: "Copy" },
-  { icon: <SaveIcon />, name: "Save" },
-  { icon: <PrintIcon />, name: "Print" },
-  { icon: <ShareIcon />, name: "Share" },
+  { icon: <AddAlertIcon />, name: "Add a new reminder" },
+  { icon: <ListIcon />, name: "Add a new list" },
+  { icon: <GroupWorkIcon />, name: "Add a new group" },
 ];
 
 export default function OpenIconSpeedDial() {
