@@ -20,6 +20,7 @@ import SaveIcon from "@mui/icons-material/Save";
 import PrintIcon from "@mui/icons-material/Print";
 import ShareIcon from "@mui/icons-material/Share";
 import ResponsiveAppBar from "./components/ResponsiveAppBar";
+import Stack from "@mui/material/Stack";
 
 const actions = [
   { icon: <FileCopyIcon />, name: "Copy" },
@@ -64,18 +65,20 @@ function App() {
   return (
     <React.Fragment>
       <CssBaseline />
-      {/* Need to add a basic app bar: https://mui.com/material-ui/react-app-bar/ */}
       <ResponsiveAppBar />
-
+      <Box height={20} />
       <Container maxWidth="sm">
-        <Card variant="outlined">{card}</Card>
-        <Card variant="outlined">{card}</Card>
-        <Card variant="outlined">{card}</Card>
-        <Card variant="outlined">{card}</Card>
-        <Card variant="outlined">{card}</Card>
-        <Card variant="outlined">{card}</Card>
-        <Card variant="outlined">{card}</Card>
-        <Card variant="outlined">{card}</Card>
+        <Stack spacing={2}>
+          <Card variant="outlined">{card}</Card>
+          <Card variant="outlined">{card}</Card>
+          <Card variant="outlined">{card}</Card>
+          <Card variant="outlined">{card}</Card>
+          <Card variant="outlined">{card}</Card>
+          <Card variant="outlined">{card}</Card>
+          <Card variant="outlined">{card}</Card>
+          <Card variant="outlined">{card}</Card>
+        </Stack>
+        <Box height={20} />
 
         {/* https://mui.com/material-ui/react-speed-dial/ */}
         <SpeedDial
