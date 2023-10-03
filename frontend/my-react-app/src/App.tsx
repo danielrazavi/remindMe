@@ -3,47 +3,16 @@ import React from "react";
 import Container from "@mui/material/Container";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 
 import ResponsiveAppBar from "./components/ResponsiveAppBar";
 import Stack from "@mui/material/Stack";
 import OpenIconSpeedDial from "./components/SpeedDial";
 import ReminderCards from "./components/Card";
-
-// Define a function to return the dummy data
-function getDummyData() {
-  return [
-    {
-      id: 1,
-      title: "Buy Groceries",
-      description: "Milk, eggs, bread, and fruits",
-      dueDate: "2023-10-10T12:00:00Z",
-      completed: false,
-    },
-    {
-      id: 2,
-      title: "Meeting with Client",
-      description: "Discuss project requirements",
-      completed: false,
-    },
-    {
-      id: 3,
-      title: "Pay Utility Bills",
-      description: "Electricity and water bills",
-      dueDate: "2023-10-20T10:00:00Z",
-      completed: true,
-    },
-    {
-      id: 4,
-      title: "Finish Homework",
-      description: "Complete math assignment",
-      dueDate: "2023-10-12T18:00:00Z",
-      completed: false,
-    },
-  ];
-}
+import fetchReminderLists from "./model/DatabaseModel";
 
 function App() {
-  const reminders = getDummyData();
+  const reminderList = fetchReminderLists(); //TODO: FIX THIS.
   return (
     <React.Fragment>
       <CssBaseline />
@@ -52,8 +21,11 @@ function App() {
 
       <Box height={20} />
       <Container maxWidth="sm">
+        <Typography variant="h2" component="div">
+          {reminderList.listName}
+        </Typography>
         <Stack spacing={2}>
-          {reminders.map((reminder) =>
+          {reminderList.reminders.map((reminder) =>
             !reminder.completed ? (
               <ReminderCards
                 key={reminder.id}

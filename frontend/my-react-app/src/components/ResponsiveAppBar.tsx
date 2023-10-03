@@ -22,17 +22,14 @@ import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 
-const pages = ["Products", "Pricing", "Blog"];
+const pages = ["Today", "Scheduled", "All", "Completed"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 type Anchor = "top" | "left" | "bottom" | "right";
 
 function ResponsiveAppBar() {
   const [state, setState] = React.useState({
-    top: false,
-    left: true,
-    bottom: false,
-    right: false,
+    left: false,
   });
 
   const toggleDrawer =
