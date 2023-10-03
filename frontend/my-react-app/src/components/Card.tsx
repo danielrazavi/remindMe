@@ -4,27 +4,38 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 
-export default function ReminderCards() {
+interface ReminderCardProps {
+  title: string;
+  description: string;
+  dueDate: Date | null;
+  completed: boolean;
+}
+
+export default function ReminderCards({
+  title,
+  description,
+  dueDate,
+  completed,
+}: ReminderCardProps) {
   return (
     <Card variant="outlined">
       <CardContent>
-        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          Word of the Day
-        </Typography>
         <Typography variant="h5" component="div">
-          benevolent
+          {title}
         </Typography>
+
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          adjective
+          {description}
         </Typography>
-        <Typography variant="body2">
-          well meaning and kindly.
-          <br />
-          {'"a benevolent smile"'}
-        </Typography>
+
+        {dueDate ? (
+          <Typography variant="body2">
+            Due {dueDate.toDateString()} at {dueDate.toLocaleTimeString()}
+          </Typography>
+        ) : null}
       </CardContent>
       <CardActions>
-        <Button size="small">Learn More</Button>
+        <Button size="small">More Details</Button>
       </CardActions>
     </Card>
   );
