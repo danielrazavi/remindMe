@@ -7,8 +7,17 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
-export default function FormDialog() {
-  const [open, setOpen] = React.useState(false);
+interface FormDialogProps {
+  givenState: boolean;
+  onClose: () => void;
+}
+
+const FormDialog: React.FC<FormDialogProps> = ({ givenState, onClose }) => {
+  const [open, setOpen] = React.useState(givenState);
+
+  React.useEffect(() => {
+    setOpen(givenState);
+  }, [givenState]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -16,13 +25,11 @@ export default function FormDialog() {
 
   const handleClose = () => {
     setOpen(false);
+    onClose();
   };
 
   return (
-    <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Open form dialog
-      </Button>
+    <React.Fragment>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Subscribe</DialogTitle>
         <DialogContent>
@@ -45,6 +52,8 @@ export default function FormDialog() {
           <Button onClick={handleClose}>Subscribe</Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </React.Fragment>
   );
-}
+};
+
+export default FormDialog;

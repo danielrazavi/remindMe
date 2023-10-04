@@ -12,7 +12,7 @@ import ReminderCards from "./components/Card";
 import fetchReminderLists from "./model/DatabaseModel";
 
 function App() {
-  const reminderList = fetchReminderLists(); //TODO: FIX THIS.
+  const reminderList = fetchReminderLists();
   return (
     <React.Fragment>
       <CssBaseline />
