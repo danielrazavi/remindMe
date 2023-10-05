@@ -5,7 +5,7 @@ import AddAlertIcon from "@mui/icons-material/AddAlert";
 import ListIcon from "@mui/icons-material/List";
 import GroupWorkIcon from "@mui/icons-material/GroupWork";
 import { useEffect, useState } from "react";
-import FormDialog from "./FormDialog";
+import NewReminderDialog from "./NewReminderDialog";
 import React from "react";
 
 const actions = [
@@ -43,7 +43,10 @@ export default function OpenIconSpeedDial() {
           />
         ))}
       </SpeedDial>
-      <FormDialog givenState={formDialogOpen} onClose={handleFormDialogClose} />
+      <NewReminderDialog
+        givenState={formDialogOpen}
+        onClose={handleFormDialogClose}
+      />
     </React.Fragment>
   );
 }
