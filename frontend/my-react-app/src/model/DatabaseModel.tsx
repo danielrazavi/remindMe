@@ -22,7 +22,7 @@ export default function fetchReminderLists(): ReminderList {
   }));
 
   const reminderList: ReminderList = {
-    listName: "Default List",
+    listName: "Today",
     reminders: reminders,
   };
 
