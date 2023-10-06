@@ -4,7 +4,7 @@ import SpeedDialAction from "@mui/material/SpeedDialAction";
 import AddAlertIcon from "@mui/icons-material/AddAlert";
 import ListIcon from "@mui/icons-material/List";
 import GroupWorkIcon from "@mui/icons-material/GroupWork";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import NewReminderDialog from "./NewReminderDialog";
 import React from "react";
 import NewListDialog from "./NewListDialog";
