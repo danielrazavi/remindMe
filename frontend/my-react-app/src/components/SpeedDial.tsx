@@ -7,6 +7,8 @@ import GroupWorkIcon from "@mui/icons-material/GroupWork";
 import { useEffect, useState } from "react";
 import NewReminderDialog from "./NewReminderDialog";
 import React from "react";
+import NewListDialog from "./NewListDialog";
+import NewGroupDialog from "./NewGroupDialog";
 
 const actions = [
   { icon: <AddAlertIcon />, name: "Add a new reminder" },
@@ -15,19 +17,30 @@ const actions = [
 ];
 
 export default function OpenIconSpeedDial() {
-  const [formDialogOpen, setFormDialogOpen] = useState(false);
+  const [newReminderDialogOpen, setNewReminderDialogOpen] = useState(false);
+  const [newListDialogOpen, setNewListDialogOpen] = useState(false);
+  const [newGroupDialogOpen, setNewGroupDialogOpen] = useState(false);
 
-  useEffect(() => {
-    console.log("formDialogOpen changed:", formDialogOpen);
-  }, [formDialogOpen]);
-
-  const handleFormDialogOpen = () => {
-    setFormDialogOpen(true);
+  const handleFormDialogOpen = (name: string) => {
+    if (name == "Add a new reminder") {
+      setNewReminderDialogOpen(true);
+    } else if (name == "Add a new list") {
+      setNewListDialogOpen(true);
+    } else if (name == "Add a new group") {
+      setNewGroupDialogOpen(true);
+    }
   };
 
-  const handleFormDialogClose = () => {
-    setFormDialogOpen(false);
+  const handleFormDialogClose = (name: string) => {
+    if (name == "Add a new reminder") {
+      setNewReminderDialogOpen(false);
+    } else if (name == "Add a new list") {
+      setNewListDialogOpen(false);
+    } else if (name == "Add a new group") {
+      setNewGroupDialogOpen(false);
+    }
   };
+
   return (
     <React.Fragment>
       <SpeedDial
@@ -39,13 +52,21 @@ export default function OpenIconSpeedDial() {
             key={action.name}
             icon={action.icon}
             tooltipTitle={action.name}
-            onClick={() => handleFormDialogOpen()}
+            onClick={() => handleFormDialogOpen(action.name)}
           />
         ))}
       </SpeedDial>
       <NewReminderDialog
-        givenState={formDialogOpen}
-        onClose={handleFormDialogClose}
+        givenState={newReminderDialogOpen}
+        onClose={() => handleFormDialogClose("Add a new reminder")}
+      />
+      <NewListDialog
+        givenState={newListDialogOpen}
+        onClose={() => handleFormDialogClose("Add a new list")}
+      />
+      <NewGroupDialog
+        givenState={newGroupDialogOpen}
+        onClose={() => handleFormDialogClose("Add a new group")}
       />
     </React.Fragment>
   );
