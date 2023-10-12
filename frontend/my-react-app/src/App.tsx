@@ -9,10 +9,10 @@ import ResponsiveAppBar from "./components/ResponsiveAppBar";
 import Stack from "@mui/material/Stack";
 import OpenIconSpeedDial from "./components/SpeedDial";
 import ReminderCards from "./components/Card";
-import fetchReminderLists from "./model/DatabaseModel";
+import { fetchReminderList } from "./model/DatabaseModel";
 
 function App() {
-  const reminderList = fetchReminderLists();
+  const reminderList = fetchReminderList();
   return (
     <React.Fragment>
       <CssBaseline />
