@@ -3,6 +3,7 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
+import DoneIcon from "@mui/icons-material/Done";
 
 interface ReminderCardProps {
   title: string;
@@ -36,6 +37,9 @@ export default function ReminderCards({
       </CardContent>
       <CardActions>
         <Button size="small">More Details</Button>
+        <Button color="success" startIcon={<DoneIcon />} size="small">
+          Complete Reminder
+        </Button>
       </CardActions>
     </Card>
   );
