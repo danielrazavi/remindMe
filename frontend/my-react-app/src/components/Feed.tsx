@@ -1,35 +1,22 @@
-import CssBaseline from "@mui/material/CssBaseline";
 import React from "react";
-import ResponsiveAppBar from "./ResponsiveAppBar";
-import Box from "@mui/material/Box";
+import CssBaseline from "@mui/material/CssBaseline";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
-import OpenIconSpeedDial from "./SpeedDial";
-import ReminderList from "../model/ReminderList";
 import ReminderCards from "./Card";
 import { useParams } from "react-router-dom";
 import { fetchReminderList } from "../model/DatabaseModel";
 
-// interface FeedProps {
-//   reminderList: ReminderList;
-// }
-
 function Feed() {
   let { reminderListId } = useParams();
-  console.log(reminderListId);
   if (!reminderListId) {
-    reminderListId = "";
+    reminderListId = "All";
   }
   const reminderList = fetchReminderList({ input: reminderListId });
 
   return (
     <React.Fragment>
       <CssBaseline />
-
-      <ResponsiveAppBar />
-
-      <Box height={20} />
       <Container maxWidth="sm">
         <Typography variant="h2" component="div">
           {reminderList.listName}
@@ -46,9 +33,6 @@ function Feed() {
             ) : null
           )}
         </Stack>
-        <Box height={20} />
-
-        <OpenIconSpeedDial />
       </Container>
     </React.Fragment>
   );
