@@ -13,6 +13,13 @@ import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import StarBorder from "@mui/icons-material/StarBorder";
 import Collapse from "@mui/material/Collapse";
+import {
+  AccessTime,
+  AccountCircle,
+  AllInbox,
+  ContactSupport,
+  MailOutline,
+} from "@mui/icons-material";
 
 interface ListDrawerProps {
   reminderGroups: ReminderGroup[];
@@ -28,31 +35,77 @@ function ListDrawer({ reminderGroups }: ListDrawerProps) {
     setOpenStates(newOpenStates);
   };
 
+  const handleReminderGroupClick = (index: number) => {
+    handleToggleGroup(index);
+    // Handle ReminderGroup click behavior here
+  };
+
+  const handleReminderListClick = (groupIndex: number, listIndex: number) => {
+    // Handle ReminderList click behavior here, e.g., make an API call
+    console.log(
+      "API call for ReminderList:",
+      reminderGroups[groupIndex].groupName,
+      reminderGroups[groupIndex].reminderLists[listIndex].listName
+    );
+    // TODO: need to set up API calls to express app.
+  };
+
   return (
     <Box sx={{ width: 250 }} role="presentation">
       <List>
-        {["Account", "Contact Us", "Newsletter"].map((text, index) => (
+        <ListItem key="Account" disablePadding>
+          <ListItemButton>
+            <ListItemIcon>
+              <AccountCircle />
+            </ListItemIcon>
+            <ListItemText primary="Account" />
+          </ListItemButton>
+        </ListItem>
+        <ListItem key="Contact Us" disablePadding>
+          <ListItemButton>
+            <ListItemIcon>
+              <ContactSupport />
+            </ListItemIcon>
+            <ListItemText primary="Contact Us" />
+          </ListItemButton>
+        </ListItem>
+        <ListItem key="Newsletter" disablePadding>
+          <ListItemButton>
+            <ListItemIcon>
+              <MailOutline />
+            </ListItemIcon>
+            <ListItemText primary="Newsletter" />
+          </ListItemButton>
+        </ListItem>
+      </List>
+
+      <Divider />
+
+      <List>
+        {["All", "Today", "Scheduled"].map((text, index) => (
           <ListItem key={text} disablePadding>
             <ListItemButton>
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                {index === 0 ? <AllInbox /> : <AccessTime />}
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItemButton>
           </ListItem>
         ))}
       </List>
+
       <Divider />
+
       <List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
-        {reminderGroups.map((groupElement, index) => (
+        {reminderGroups.map((groupElement, gindex) => (
           <React.Fragment key={groupElement.groupName}>
-            <ListItemButton onClick={() => handleToggleGroup(index)}>
+            <ListItemButton onClick={() => handleToggleGroup(gindex)}>
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                {gindex % 2 === 0 ? <InboxIcon /> : <MailIcon />}
               </ListItemIcon>
               <ListItemText primary={groupElement.groupName} />
               {groupElement.reminderLists.length !== 0 ? (
-                openStates[index] ? (
+                openStates[gindex] ? (
                   <ExpandLess />
                 ) : (
                   <ExpandMore />
@@ -60,10 +113,12 @@ function ListDrawer({ reminderGroups }: ListDrawerProps) {
               ) : null}
             </ListItemButton>
             {groupElement.reminderLists.length > 0 ? (
-              <Collapse in={openStates[index]} timeout="auto" unmountOnExit>
+              <Collapse in={openStates[gindex]} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
-                  {groupElement.reminderLists.map((listElement, index) => (
-                    <ListItemButton sx={{ pl: 4 }}>
+                  {groupElement.reminderLists.map((listElement, lindex) => (
+                    <ListItemButton
+                      onClick={() => handleReminderListClick(gindex, lindex)}
+                      sx={{ pl: 4 }}>
                       <ListItemIcon>
                         <StarBorder />
                       </ListItemIcon>
