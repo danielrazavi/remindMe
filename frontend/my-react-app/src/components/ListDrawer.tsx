@@ -22,10 +22,15 @@ import {
 } from "@mui/icons-material";
 
 interface ListDrawerProps {
+  toggleDrawer: Function;
   updateFeedFunction: Function;
   reminderGroups: ReminderGroup[];
 }
-function ListDrawer({ reminderGroups, updateFeedFunction }: ListDrawerProps) {
+function ListDrawer({
+  toggleDrawer,
+  reminderGroups,
+  updateFeedFunction,
+}: ListDrawerProps) {
   const [openStates, setOpenStates] = React.useState<boolean[]>(
     new Array(reminderGroups.length).fill(false)
   );
@@ -41,7 +46,11 @@ function ListDrawer({ reminderGroups, updateFeedFunction }: ListDrawerProps) {
   };
 
   return (
-    <Box sx={{ width: 250 }} role="presentation">
+    <Box
+      onClick={toggleDrawer(false)}
+      onKeyDown={toggleDrawer(false)}
+      sx={{ width: 250 }}
+      role="presentation">
       <List>
         <ListItem key="Account" disablePadding>
           <ListItemButton>

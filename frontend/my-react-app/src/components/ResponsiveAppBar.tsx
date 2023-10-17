@@ -27,7 +27,7 @@ function ResponsiveAppBar({ updateFeedFunction }: ResponsiveAppBarProps) {
   const reminderGroupData: ReminderGroup[] = fetchReminderGroup();
 
   return (
-    <React.Fragment key={state.leftDrawer.toString()}>
+    <>
       <AppBar position="sticky">
         <Container maxWidth="xl">
           <Toolbar disableGutters>
@@ -51,11 +51,12 @@ function ResponsiveAppBar({ updateFeedFunction }: ResponsiveAppBarProps) {
         open={state["leftDrawer"]}
         onClose={toggleDrawer(false)}>
         <ListDrawer
+          toggleDrawer={toggleDrawer}
           updateFeedFunction={updateFeedFunction}
           reminderGroups={reminderGroupData}
         />
       </Drawer>
-    </React.Fragment>
+    </>
   );
 }
 
