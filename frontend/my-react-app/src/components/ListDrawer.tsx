@@ -22,9 +22,10 @@ import {
 } from "@mui/icons-material";
 
 interface ListDrawerProps {
+  updateFeedFunction: Function;
   reminderGroups: ReminderGroup[];
 }
-function ListDrawer({ reminderGroups }: ListDrawerProps) {
+function ListDrawer({ reminderGroups, updateFeedFunction }: ListDrawerProps) {
   const [openStates, setOpenStates] = React.useState<boolean[]>(
     new Array(reminderGroups.length).fill(false)
   );
@@ -35,19 +36,8 @@ function ListDrawer({ reminderGroups }: ListDrawerProps) {
     setOpenStates(newOpenStates);
   };
 
-  const handleReminderGroupClick = (index: number) => {
-    handleToggleGroup(index);
-    // Handle ReminderGroup click behavior here
-  };
-
-  const handleReminderListClick = (groupIndex: number, listIndex: number) => {
-    // Handle ReminderList click behavior here, e.g., make an API call
-    console.log(
-      "API call for ReminderList:",
-      reminderGroups[groupIndex].groupName,
-      reminderGroups[groupIndex].reminderLists[listIndex].listName
-    );
-    // TODO: need to set up API calls to express app.
+  const handleReminderListClick = (group: string, list: string) => {
+    updateFeedFunction(group, list);
   };
 
   return (
@@ -84,7 +74,8 @@ function ListDrawer({ reminderGroups }: ListDrawerProps) {
       <List>
         {["All", "Today", "Scheduled"].map((text, index) => (
           <ListItem key={text} disablePadding>
-            <ListItemButton>
+            <ListItemButton
+              onClick={() => handleReminderListClick("__default", text)}>
               <ListItemIcon>
                 {index === 0 ? <AllInbox /> : <AccessTime />}
               </ListItemIcon>
@@ -117,7 +108,12 @@ function ListDrawer({ reminderGroups }: ListDrawerProps) {
                 <List component="div" disablePadding>
                   {groupElement.reminderLists.map((listElement, lindex) => (
                     <ListItemButton
-                      onClick={() => handleReminderListClick(gindex, lindex)}
+                      onClick={() =>
+                        handleReminderListClick(
+                          groupElement.groupName,
+                          listElement.listName
+                        )
+                      }
                       sx={{ pl: 4 }}>
                       <ListItemIcon>
                         <StarBorder />

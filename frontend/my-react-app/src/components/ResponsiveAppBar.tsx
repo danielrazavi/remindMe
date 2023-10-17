@@ -10,38 +10,31 @@ import ReminderGroup from "../model/ReminderGroup";
 import { fetchReminderGroup } from "../model/DatabaseModel";
 import ListDrawer from "./ListDrawer";
 
-type Anchor = "left";
+interface ResponsiveAppBarProps {
+  updateFeedFunction: Function;
+}
 
-function ResponsiveAppBar() {
+function ResponsiveAppBar({ updateFeedFunction }: ResponsiveAppBarProps) {
   const [state, setState] = React.useState({
-    left: false,
+    leftDrawer: false,
   });
 
   const toggleDrawer =
-    (anchor: Anchor, open: boolean) =>
-    (event: React.KeyboardEvent | React.MouseEvent) => {
-      if (
-        event.type === "keydown" &&
-        ((event as React.KeyboardEvent).key === "Tab" ||
-          (event as React.KeyboardEvent).key === "Shift")
-      ) {
-        return;
-      }
-
-      setState({ ...state, [anchor]: open });
+    (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
+      setState({ ...state, leftDrawer: open });
     };
 
   const reminderGroupData: ReminderGroup[] = fetchReminderGroup();
 
   return (
-    <React.Fragment key={state.left.toString()}>
+    <React.Fragment key={state.leftDrawer.toString()}>
       <AppBar position="sticky">
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <IconButton
               size="large"
               edge="start"
-              onClick={toggleDrawer("left", true)}
+              onClick={toggleDrawer(true)}
               color="inherit"
               aria-label="menu"
               sx={{ mr: 2 }}>
@@ -55,9 +48,12 @@ function ResponsiveAppBar() {
       </AppBar>
       <Drawer
         anchor="left"
-        open={state["left"]}
-        onClose={toggleDrawer("left", false)}>
-        <ListDrawer reminderGroups={reminderGroupData} />
+        open={state["leftDrawer"]}
+        onClose={toggleDrawer(false)}>
+        <ListDrawer
+          updateFeedFunction={updateFeedFunction}
+          reminderGroups={reminderGroupData}
+        />
       </Drawer>
     </React.Fragment>
   );
