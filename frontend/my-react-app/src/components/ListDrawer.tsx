@@ -35,10 +35,14 @@ function ListDrawer({
     new Array(reminderGroups.length).fill(false)
   );
 
-  const handleToggleGroup = (index: number) => {
+  const handleToggleGroup = (
+    index: number,
+    event: React.MouseEvent | React.KeyboardEvent
+  ) => {
     const newOpenStates = [...openStates];
     newOpenStates[index] = !newOpenStates[index];
     setOpenStates(newOpenStates);
+    event.stopPropagation();
   };
 
   const handleReminderListClick = (group: string, list: string) => {
@@ -99,7 +103,8 @@ function ListDrawer({
       <List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
         {reminderGroups.map((groupElement, gindex) => (
           <React.Fragment key={groupElement.groupName}>
-            <ListItemButton onClick={() => handleToggleGroup(gindex)}>
+            <ListItemButton
+              onClick={(event) => handleToggleGroup(gindex, event)}>
               <ListItemIcon>
                 {gindex % 2 === 0 ? <InboxIcon /> : <MailIcon />}
               </ListItemIcon>
