@@ -2,6 +2,7 @@
 import Reminder from "./Reminder";
 import ReminderList from "./ReminderList";
 import ReminderGroup from "./ReminderGroup";
+import Member from "./Member";
 
 const API_URL = "https://your-backend-api-url";
 
@@ -194,6 +195,24 @@ export function fetchReminderGroup(): ReminderGroup[] {
   //     console.log(index, element.name);
   //   });
   // });
+
+  return jsonArray;
+}
+
+export function fetchAccountInfo(): Member {
+  const jsonData = JSON.stringify({
+    id: "00001",
+    firstName: "Dan",
+    middleName: "",
+    lastName: "Razavi",
+    email: "abc@duck.com",
+    phoneNumber: 6471111111,
+    defaultReminderGroupId: "1233kjhhsdf8123",
+    password: "jahgsdhasda",
+  });
+
+  // Parse the JSON data
+  const jsonArray = JSON.parse(jsonData);
 
   return jsonArray;
 }

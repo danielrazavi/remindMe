@@ -66,7 +66,7 @@ export default function SignUp() {
             onSubmit={handleSubmit}
             sx={{ mt: 3 }}>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={4}>
                 <TextField
                   autoComplete="given-name"
                   name="firstName"
@@ -77,7 +77,17 @@ export default function SignUp() {
                   autoFocus
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={4}>
+                <TextField
+                  required
+                  fullWidth
+                  id="middleName"
+                  label="Middle Name"
+                  name="middleName"
+                  autoComplete="middle-name"
+                />
+              </Grid>
+              <Grid item xs={12} sm={4}>
                 <TextField
                   required
                   fullWidth
@@ -101,10 +111,31 @@ export default function SignUp() {
                 <TextField
                   required
                   fullWidth
+                  id="phone"
+                  label="PhoneNumber"
+                  name="phone"
+                  autoComplete="phone"
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  required
+                  fullWidth
                   name="password"
                   label="Password"
                   type="password"
                   id="password"
+                  autoComplete="new-password"
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  required
+                  fullWidth
+                  name="repeatPassword"
+                  label="Password Again"
+                  type="password"
+                  id="repeatPassword"
                   autoComplete="new-password"
                 />
               </Grid>
@@ -126,7 +157,7 @@ export default function SignUp() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/signin" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>

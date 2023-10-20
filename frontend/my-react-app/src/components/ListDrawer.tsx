@@ -56,35 +56,6 @@ function ListDrawer({
       sx={{ width: 250 }}
       role="presentation">
       <List>
-        <ListItem key="Account" disablePadding>
-          <ListItemButton>
-            <ListItemIcon>
-              <AccountCircle />
-            </ListItemIcon>
-            <ListItemText primary="Account" />
-          </ListItemButton>
-        </ListItem>
-        <ListItem key="Contact Us" disablePadding>
-          <ListItemButton>
-            <ListItemIcon>
-              <ContactSupport />
-            </ListItemIcon>
-            <ListItemText primary="Contact Us" />
-          </ListItemButton>
-        </ListItem>
-        <ListItem key="Newsletter" disablePadding>
-          <ListItemButton>
-            <ListItemIcon>
-              <MailOutline />
-            </ListItemIcon>
-            <ListItemText primary="Newsletter" />
-          </ListItemButton>
-        </ListItem>
-      </List>
-
-      <Divider />
-
-      <List>
         {["All", "Today", "Scheduled"].map((text, index) => (
           <ListItem key={text} disablePadding>
             <ListItemButton
