@@ -1,12 +1,9 @@
 import express, { Request, Response } from "express";
 import { Client } from "pg";
 import AWS from "aws-sdk";
-import dotenv from "dotenv";
-
-dotenv.config(); // Load environment variables from .env file
 
 const app = express();
-const port = process.env.PORT ? parseInt(process.env.PORT) : 3000;
+const bport = process.env.PORT ? parseInt(process.env.PORT) : 3000;
 
 // Initialize AWS SDK
 AWS.config.update({ region: "us-east-1" }); // Set the AWS region
@@ -22,35 +19,14 @@ const ssm = new AWS.SSM();
         .getParameter({ Name: "/myapp/database", WithDecryption: true })
         .promise()
     )?.Parameter;
-    // const dbPortParam = (
-    //   await ssm
-    //     .getParameter({ Name: "/myapp/database/port", WithDecryption: true })
-    //     .promise()
-    // )?.Parameter;
-    // const dbNameParam = (
-    //   await ssm
-    //     .getParameter({ Name: "/myapp/database/name", WithDecryption: true })
-    //     .promise()
-    // )?.Parameter;
-    // const dbUserParam = (
-    //   await ssm
-    //     .getParameter({ Name: "/myapp/database/user", WithDecryption: true })
-    //     .promise()
-    // )?.Parameter;
-    // const dbPasswordParam = (
-    //   await ssm
-    //     .getParameter({
-    //       Name: "/myapp/database/password",
-    //       WithDecryption: true,
-    //     })
-    //     .promise()
-    // )?.Parameter;
 
     // Parse the JSON data from the SSM parameter
     const dbCredentials = JSON.parse(dbCredentialsParam?.Value ?? "{}");
 
     // Extract the host, port, name, username, and password from the JSON data
     const { host, port, name, username, password } = dbCredentials;
+
+    console.log(host, port, name, username, password);
 
     if (!host || !port || !name || !username || !password) {
       console.error("One or more SSM parameters are undefined.");
@@ -61,10 +37,25 @@ const ssm = new AWS.SSM();
     const dbClient = new Client({
       host: host,
       port: parseInt(port, 10),
-      database: name,
+      database: "-",
       user: username,
       password: password,
+      ssl: {
+        rejectUnauthorized: false, // You might want to use true in production for increased security.
+      },
     });
+
+    // // For testing
+    // const dbClient = new Client({
+    //   host: "remindme-db-instance.cchgiteorrmq.us-east-1.rds.amazonaws.com",
+    //   port: 5432,
+    //   database: "initial_db",
+    //   user: "postgres",
+    //   password: "Amir3599",
+    //   ssl: {
+    //     rejectUnauthorized: false, // You might want to use true in production for increased security.
+    //   },
+    // });
 
     console.log("Connecting to the database...");
     await dbClient.connect();
@@ -79,7 +70,7 @@ const ssm = new AWS.SSM();
     app.get("/api/users", async (req: Request, res: Response) => {
       try {
         // Execute an SQL query to retrieve data
-        const query = "SELECT * FROM users";
+        const query = "SELECT * FROM links";
         const result = await dbClient.query(query);
 
         // Send the result as a JSON response
@@ -91,7 +82,7 @@ const ssm = new AWS.SSM();
     });
 
     // Port Listening
-    app.listen(port, () => {
+    app.listen(bport, () => {
       console.log(`Server is running on port ${port}`);
     });
   } catch (error) {
